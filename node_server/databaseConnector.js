@@ -1,6 +1,6 @@
 let mongoose = require('mongoose');
-const uri = 'mongodb://localhost/auth_jwt';
-// const uri = 'mongodb://mongo/auth_jwt';
+// const uri = 'mongodb://localhost/auth_jwt';
+const uri = 'mongodb://jwt-db/auth_jwt';
 // the connection string can vary depending upon the connection strategy -> username/password or direct
 // here we are using direct
 mongoose.connect(uri)
