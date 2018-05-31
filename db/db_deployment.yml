@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  generation: 1
+  labels:
+    run: jwt-db
+  name: jwt-db
+  namespace: default
+  resourceVersion: "49724"
+  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/jwt-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: jwt-db
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: jwt-db
+    spec:
+      containers:
+      - image: docker.io/vibguldev/jwt-db:latest
+        imagePullPolicy: Always
+        name: jwt-db
+        volumeMounts:
+        - mountPath: /data/db
+          name: db-volume
+        ports:
+        - containerPort: 27017
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      volumes:
+      - name: db-volume
+        emptyDir: {}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}
